@@ -1,11 +1,20 @@
 
 SRCS := $(wildcard src/*.vs)
 
-all: $(SRCS)
-    @echo $(SRCS)
-    @yosys -p 'synth_ice40 -top top -blif build/design.blif' $(SRCS)
-    @arachne-pnr -d 1k -P tq144:4k -p build/pinmap.pcf build/design.blif -o build/design.txt
-    @icepack build/design.txt build/design.bin
+all:
+	@make synth
+	@make place
+	@make pack
+
+synth: $(SRCS)
+	@echo $(SRCS)
+	@yosys -p 'synth_ice40 -top top -blif build/design.blif' $(SRCS)
+
+place: build/design.blif
+	@arachne-pnr -d 1k -P tq144:4k -p build/pinmap.pcf build/design.blif -o build/design.txt
+
+pack: build/design.txt
+	@icepack build/design.txt build/design.bin
 
 clean:
 	@rm -f build/*
