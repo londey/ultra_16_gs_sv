@@ -9,7 +9,10 @@
     },
     "extensions": [
         "eirikpre.systemverilog",
-        "twitchbronbron.vscode-litex"
+        "twitchbronbron.vscode-litex",
+        "GitHub.copilot-chat",
+        "GitHub.copilot",
+        "mshr-h.veriloghdl"
     ],
     "forwardPorts": [],
     "postCreateCommand": "echo 'Ready to code SystemVerilog for iCE40!'"
