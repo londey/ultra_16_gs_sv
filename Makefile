@@ -12,6 +12,7 @@ srcs:
 
 synth: $(SRCS)
 	@echo $(SRCS)
+	@mkdir -p build
 	@yosys -p 'synth_ice40 -top Switches_To_LEDs -json build/design.json' $(SRCS)
 
 place: build/design.json
