@@ -32,11 +32,11 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     python3 \
     python3-dev \
+    qtcreator qtbase5-dev qt5-qmake \
     tcl-dev \
     xdot \
     zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    # qt5-default \
 
 # Install Icestorm tools (Yosys, nextpnr, Icestorm)
 RUN git clone https://github.com/cliffordwolf/icestorm.git /icestorm && \
@@ -52,7 +52,7 @@ RUN git clone https://github.com/YosysHQ/yosys.git /yosys && \
 
 RUN git clone https://github.com/YosysHQ/nextpnr.git /nextpnr && \
     cd /nextpnr && \
-    cmake -DARCH=ice40 . && \
+    cmake -DARCH=ice40 -DBUILD_GUI=ON . && \
     make -j$(nproc) && \
     make install
 
