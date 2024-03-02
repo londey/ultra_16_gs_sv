@@ -1,6 +1,6 @@
 
 SRCS := $(wildcard src/*.sv)
-
+TESTS := $(wildcard test/*.sv)
 
 all:
 	@make synth
@@ -28,3 +28,13 @@ clean:
 #  The  $(SRCS)  variable is a list of all the .vs files in the src directory. The  all  target is the default target that will be run when you type  make  in the terminal. It runs the  yosys  command to synthesize the design, then the  arachne-pnr  command to place and route the design, and finally the  icepack  command to generate the binary file. The  clean  target is used to remove all the files in the build directory. 
 #  The  @  symbol at the beginning of each command suppresses the output of the command. 
 #  The  $(SRCS)  variable is used to pass the list of .vs files to the  yosys  command.
+
+build/test/%.vvp: test/%.sv
+	@mkdir -p build/test
+	@iverilog -o $@ $<
+
+.PHONY: test
+test: $(TESTS)
+	for test in $(TESTS); do \
+		build/$${test%.sv}.vvp; \
+	done
