@@ -2,6 +2,8 @@
 SRCS := $(wildcard src/*.sv)
 TESTS := $(wildcard test/*.sv)
 
+TOP = Top
+
 all:
 	@make synth
 	@make place
@@ -13,7 +15,7 @@ srcs:
 synth: $(SRCS)
 	@echo $(SRCS)
 	@mkdir -p build
-	@yosys -p 'synth_ice40 -top Switches_To_LEDs -json build/design.json' $(SRCS)
+	@yosys -p 'synth_ice40 -top $(TOP) -json build/design.json' $(SRCS)
 
 place: build/design.json
 	nextpnr-ice40 --hx1k --json build/design.json --pcf src/pinmap.pcf --asc build/design.asc --package vq100
