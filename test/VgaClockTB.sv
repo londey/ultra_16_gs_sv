@@ -30,7 +30,7 @@ module VgaClockTB;
    .o_Col_Count(),
    .o_Row_Count()
   );
-  
+
   
   // Drives Red/Grn/Blue video - Test Pattern 5 (Color Bars)
   Test_Pattern_Gen  #(.VIDEO_WIDTH(c_VIDEO_WIDTH),
