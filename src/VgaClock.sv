@@ -10,8 +10,6 @@ module VgaClock
    input            i_reset,
    output           o_hsync,
    output           o_vsync,
-   output           o_sprite_x0,
-   output           o_sprite_y0,
    output reg [9:0] o_col_count = 0,
    output reg [9:0] o_row_count = 0
   );
@@ -42,11 +40,5 @@ module VgaClock
 
   assign o_hsync = o_col_count >= H_PORCH_COLS ? 1'b1 : 1'b0;
   assign o_vsync = o_row_count >= V_PORCH_ROWS ? 1'b1 : 1'b0;
-
-  localparam H_SPRITE_X0_COL = (TOTAL_COLS - ACTIVE_COLS) - SPRITE_SIZE ;
-  localparam H_SPRITE_Y0_ROW = (TOTAL_ROWS - ACTIVE_ROWS) - SPRITE_SIZE;
-
-  assign o_sprite_x0 = o_col_count == H_SPRITE_X0_COL ? 1'b1 : 1'b0;
-  assign o_sprite_y0 = o_row_count == H_SPRITE_Y0_ROW ? 1'b1 : 1'b0;
 
 endmodule
